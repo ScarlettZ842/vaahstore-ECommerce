@@ -47,7 +47,7 @@ class BrandsController extends Controller
             }
 
             $data['taxonomy']['status'] = Taxonomy::getTaxonomyByType('brand-status');
-            $data['auth_approved_by'] = auth()->user()->get();
+            $data['auth_approved_by'] = auth()->user();
 
             $data['empty_item']['is_active'] = 1;
             $data['empty_item']['approved_by_user'] = null;

@@ -6,8 +6,9 @@ import {vaah} from '../vaahvue/pinia/vaah'
 let model_namespace = 'VaahCms\\Modules\\Store\\Models\\StorePaymentMethod';
 
 
-let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
-let ajax_url = base_url + "/store/storepaymentmethods";
+import {getBaseUrl} from '../utils/base-url';
+let base_url = getBaseUrl();
+let ajax_url = base_url + "/api/store/storepaymentmethods";
 
 let empty_states = {
     query: {

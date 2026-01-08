@@ -8,8 +8,9 @@ import dayjsPluginUTC from 'dayjs-plugin-utc'
 dayjs.extend(dayjsPluginUTC)
 let model_namespace = 'VaahCms\\Modules\\Store\\Models\\ProductAttribute';
 
-let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
-let ajax_url = base_url + "/store/productattributes";
+import {getBaseUrl} from '../utils/base-url';
+let base_url = getBaseUrl();
+let ajax_url = base_url + "/api/store/productattributes";
 
 let empty_states = {
     query: {

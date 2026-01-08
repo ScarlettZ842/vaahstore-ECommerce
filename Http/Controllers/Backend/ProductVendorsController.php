@@ -38,7 +38,7 @@ class ProductVendorsController extends Controller
             $data['fillable']['except'] = ProductVendor::getUnFillableColumns();
             $data['empty_item'] = ProductVendor::getEmptyItem();
 
-            $data['auth_users'] = auth()->user()->get();
+            $data['auth_users'] = auth()->user();
             $data['taxonomy']['status'] = Taxonomy::getTaxonomyByType('product-vendor-status');
 
             $data['empty_item']['can_update'] = 0;

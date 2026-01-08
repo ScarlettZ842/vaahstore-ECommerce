@@ -6,9 +6,10 @@ import CSV from "dom-csv.js";
 
 let model_namespace = 'VaahCms\\Modules\\Store\\Models\\Import';
 
-let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
+import {getBaseUrl} from '../utils/base-url';
+let base_url = getBaseUrl();
 
-let ajax_url = base_url + "/store/imports";
+let ajax_url = base_url + "/api/store/imports";
 
 
 export const useImportStore = defineStore({

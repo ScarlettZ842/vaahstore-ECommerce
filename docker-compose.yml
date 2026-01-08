@@ -1,0 +1,102 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: vaahstore_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vaahstore
+      MYSQL_USER: vaahstore
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - vaahstore_network
+    healthcheck:
+      test:
+        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: vaahstore_redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    networks:
+      - vaahstore_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.vaahcms
+    container_name: vaahstore_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - vaahcms_data:/var/www/html
+      - ./:/var/www/vaahstore
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - vaahstore_network
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: vaahstore
+      DB_USERNAME: vaahstore
+      DB_PASSWORD: secret
+      REDIS_HOST: redis
+      REDIS_PASSWORD: null
+      REDIS_PORT: 6379
+
+  nginx:
+    image: nginx:alpine
+    container_name: vaahstore_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - vaahcms_data:/var/www/html
+      - ./docker/nginx/vaahcms.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - vaahstore_network
+    depends_on:
+      - app
+
+  node:
+    image: node:20-alpine
+    container_name: vaahstore_node
+    restart: unless-stopped
+    working_dir: /var/www/Vue
+    volumes:
+      - ./Vue:/var/www/Vue
+    ports:
+      - "5173:8464"
+    networks:
+      - vaahstore_network
+    command: sh -c "npm install && npm run dev-vaahstore"
+
+networks:
+  vaahstore_network:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
+  vaahcms_data:
+    driver: local

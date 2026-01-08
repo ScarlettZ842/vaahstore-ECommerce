@@ -10,8 +10,9 @@ dayjs.extend(dayjsPluginUTC)
 let model_namespace = 'VaahCms\\Modules\\Store\\Models\\Attribute';
 
 
-let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
-let ajax_url = base_url + "/store/attributes";
+import {getBaseUrl} from '../utils/base-url';
+let base_url = getBaseUrl();
+let ajax_url = base_url + "/api/store/attributes";
 
 let empty_states = {
     query: {

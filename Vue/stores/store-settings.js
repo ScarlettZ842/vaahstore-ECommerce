@@ -4,8 +4,9 @@ import { vaah } from '../vaahvue/pinia/vaah'
 import qs from 'qs'
 
 
-let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
-let ajax_url = base_url + "/store/settings";
+import {getBaseUrl} from '../utils/base-url';
+let base_url = getBaseUrl();
+let ajax_url = base_url + "/api/store/settings";
 
 export const useSettingStore = defineStore({
     id: 'settings',

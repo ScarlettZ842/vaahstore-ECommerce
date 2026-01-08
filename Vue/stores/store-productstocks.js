@@ -11,8 +11,9 @@ import {useRootStore} from "./root";
 let model_namespace = 'VaahCms\\Modules\\Store\\Models\\ProductStock';
 
 
-let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
-let ajax_url = base_url + "/store/productstocks";
+import {getBaseUrl} from '../utils/base-url';
+let base_url = getBaseUrl();
+let ajax_url = base_url + "/api/store/productstocks";
 
 let empty_states = {
     query: {
