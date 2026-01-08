@@ -244,6 +244,18 @@ vaahstore-ECommerce/
 └── docker/                    # Docker configuration files
 ```
 
+### Web App Abstract
+
+**Frontend:**
+<img width="1422" height="736" alt="Screenshot 2026-01-07 at 17 26 12" src="https://github.com/user-attachments/assets/af404b9c-4598-45da-818a-db057461eef2" />
+<img width="1417" height="731" alt="Screenshot 2026-01-07 at 17 26 24" src="https://github.com/user-attachments/assets/b286bdc1-2f00-4505-958d-d3adf12b9309" />
+<img width="1408" height="725" alt="Screenshot 2026-01-07 at 17 29 54" src="https://github.com/user-attachments/assets/33a6859e-4ed9-447e-9316-2c66ebcafd0d" />
+
+
+**Backend:**
+<img width="1428" height="736" alt="Screenshot 2026-01-07 at 17 26 34" src="https://github.com/user-attachments/assets/cb84076c-58a1-465b-9268-3c1c0a1199b7" />
+
+
 ### Troubleshooting
 
 **Blank Pages:**
